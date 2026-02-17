@@ -1,0 +1,45 @@
+# Grounder Configuration
+# This file configures the grounder node behavior
+
+grounder:
+  # Core configuration
+  grounding_mode: "both"  # Options: "owl", "dino", "both", "simple"
+  
+  # OWLv2 Configuration
+  owl_model_id: "google/owlv2-base-patch16-ensemble"
+  owl_model_path: "models/owl/"  # Custom path to model checkpoint (optional)
+  owl_threshold: 0.20
+  
+  # GroundingDINO Configuration
+  dino_model_id: "IDEA-Research/grounding-dino-base"
+  dino_model_path: "models/dino/"  # Custom path to model checkpoint (optional)
+  dino_threshold: 0.40
+  dino_text_threshold: 0.32
+  dino_pseudo_score: 0.60
+  
+  # Detection Processing
+  iou_merge_threshold: 0.30
+  fallback_fraction: 0.30
+  
+  # Robustness Configuration
+  auto_fallback_to_simple: false  # Automatically fall back to simple mode if models fail
+  
+  # Device Configuration
+  device: "cuda"  # Options: "cpu", "cuda", null (auto-detect)
+
+# Example configurations for different scenarios:
+
+# For debugging/testing (no ML models):
+# grounding_mode: "simple"
+# auto_fallback_to_simple: true
+
+# For production with OWLv2 only:
+# grounding_mode: "owl"
+# owl_threshold: 0.25
+# auto_fallback_to_simple: true
+
+# For production with both models:
+# grounding_mode: "both"
+# owl_threshold: 0.20
+# dino_box_threshold: 0.35
+# auto_fallback_to_simple: true

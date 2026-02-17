@@ -1,0 +1,15 @@
+grounder:
+  grounding_mode: simple
+  device: cuda
+  auto_fallback_to_simple: true
+  box_threshold: 0.3
+  text_threshold: 0.25
+  max_attempts: 20
+  min_box_threshold: 0.1
+  min_text_threshold: 0.1
+  max_box_threshold: 0.8
+  max_text_threshold: 0.8
+  box_reduction_factor: 0.9
+  text_reduction_factor: 0.9
+  box_increase_factor: 1.1
+  text_increase_factor: 1.1

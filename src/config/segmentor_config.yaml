@@ -1,0 +1,76 @@
+# Segmentor Configuration
+# This file configures the segmentor node behavior
+
+segmentor:
+  # Core configuration
+  backend: "box_only"  # Options: "sam", "box_only", "custom"
+  points_per_box: 1
+  min_area: 10
+  dt_suppress_radius: 8
+  axis_order: "xy"  # Options: "xy", "uv"
+  point_mode: "auto"  # Options: "auto", "dt", "centroid", "bbox_center", "topmost", "bottommost", "leftmost", "rightmost", "grid"
+  
+  # SAM-specific configuration (only for "sam" backend)
+  sam_model_type: "sam"  # Options: "sam", "sam2" - Choose between SamModel and Sam2Model
+  sam_model_name: "facebook/sam-vit-base"  # SAM options: "facebook/sam-vit-base", "facebook/sam-vit-large", "facebook/sam-vit-huge"
+                                             # SAM2 options: "facebook/sam2-hiera-tiny", "facebook/sam2-hiera-small", "facebook/sam2-hiera-large", "facebook/sam2-hiera-base-plus"
+  sam_model_path: "models/sam/"  # Custom path to SAM/SAM2 model checkpoint (optional)
+  sam2_model_name: "facebook/sam2.1-hiera-large"
+  sam2_model_path: "models/sam2/"
+  
+  # Custom backend configuration (only for "custom" backend)
+  custom_backend: null  # Custom backend object implementing MaskBackend protocol
+  custom_backend_fn: null  # Custom backend function with signature: (image, boxes, labels, scores) -> List[Optional[np.ndarray]]
+  
+  # Point mode overrides for specific labels
+  point_mode_map: {}  # Example: {"cup": "topmost", "handle": "rightmost", "cube": "dt"}
+  
+  # Device Configuration
+  device: "cuda"  # Options: "cpu", "cuda", null (auto-detect)
+
+# Example configurations for different scenarios:
+
+# For debugging/testing (no ML models, fastest):
+# backend: "box_only"
+# point_mode: "bbox_center"
+# points_per_box: 1
+
+# For production with SAM (best quality):
+# backend: "sam"
+# sam_model_type: "sam"
+# sam_model_name: "facebook/sam-vit-base"
+# point_mode: "auto"
+# points_per_box: 2
+# min_area: 20
+# device: "cuda"
+
+# For production with SAM2 (newer, potentially better quality):
+# backend: "sam"
+# sam_model_type: "sam2"
+# sam_model_name: "facebook/sam2-hiera-small"
+# point_mode: "auto"
+# points_per_box: 2
+# min_area: 20
+# device: "cuda"
+
+# For production with custom segmentation:
+# backend: "custom"
+# custom_backend_fn: "path.to.custom_function"
+# point_mode: "auto"
+# points_per_box: 1
+
+# For specific object types:
+# point_mode_map:
+#   "cup": "topmost"
+#   "handle": "rightmost"
+#   "cube": "dt"
+#   "ball": "centroid"
+#   "bottle": "topmost"
+
+# For coordinate system preferences:
+# axis_order: "uv"  # Use image coordinates (u, v) instead of standard (x, y)
+
+# For distance transform point selection:
+# point_mode: "dt"
+# dt_suppress_radius: 16  # Larger radius for more spread out points
+# points_per_box: 3  # Multiple points per object

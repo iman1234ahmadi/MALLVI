@@ -1,0 +1,167 @@
+# VIMA Configuration
+# This file configures the VIMA environment and interface behavior
+
+vima:
+  # Environment Configuration
+  env:
+    # Task Configuration
+    task_name: "instruction_following/visual_manipulation"  # Default VIMA task
+    task_config: {}  # Additional task-specific configuration
+    
+    # Display Configuration
+    display_debug_window: false  # Set to false to avoid PyBullet GUI conflicts
+    render_mode: "rgb_array"  # Options: "rgb_array", "human", "depth_array"
+    
+    # Camera Configuration
+    camera_config:
+      width: 1280
+      height: 720
+      fov: 60
+      near: 0.1
+      far: 10.0
+    
+    # Physics Configuration
+    physics_config:
+      time_step: 0.004166666666666667  # 1.0 / 240.0
+      max_steps: 1000
+      gravity: [0, 0, -9.81]
+    
+    # Robot Configuration
+    robot_config:
+      robot_type: "panda"  # Default robot type
+      end_effector: "gripper"  # End effector type
+      max_force: 100.0
+      max_velocity: 1.0
+    
+    # Scene Configuration
+    scene_config:
+      enable_collision_detection: true
+      enable_physics: true
+      enable_rendering: true
+      background_color: [0.5, 0.5, 0.5]
+    
+    # Lighting Configuration
+    lighting_config:
+      ambient_intensity: 0.3
+      diffuse_intensity: 0.7
+      shadow_enabled: true
+      shadow_quality: "medium"
+  
+    hide_arm_rgb: true
+
+  # Interface Configuration
+  interface:
+    # Observation Configuration
+    observation_modalities: ["rgb"]  # Only RGB supported in VIMA
+    include_prompt_assets: true
+    include_metadata: true
+    
+    # Action Configuration
+    action_space: "discrete"  # Options: "discrete", "continuous"
+    max_action_sequence: 10
+    action_timeout: 30.0
+    
+    # Error Handling
+    max_retries: 3
+    retry_delay: 1.0
+    fallback_on_error: true
+    continue_on_error: false
+    
+    # Logging Configuration
+    log_observations: true
+    log_actions: true
+    log_errors: true
+    log_level: "INFO"  # Options: "DEBUG", "INFO", "WARNING", "ERROR"
+    
+    # Performance Configuration
+    cache_observations: true
+    cache_size: 100
+    async_processing: false
+    enable_profiling: false
+    
+    # Memory Management
+    memory_config:
+      max_observation_cache: 50
+      cleanup_interval: 100
+      enable_garbage_collection: true
+    
+    # Network Configuration (if applicable)
+    network_config:
+      enable_remote_control: false
+      host: "localhost"
+      port: 8080
+      timeout: 30.0
+
+# Example configurations for different scenarios:
+
+# For debugging (minimal configuration):
+# vima:
+#   env:
+#     display_debug_window: false
+#     render_mode: "rgb_array"
+#     camera_config:
+#       width: 128
+#       height: 64
+#   interface:
+#     observation_modalities: ["rgb"]
+#     log_observations: true
+#     log_actions: true
+#     max_retries: 1
+
+# For production (full configuration):
+# vima:
+#   env:
+#     task_name: "instruction_following/visual_manipulation"
+#     display_debug_window: false
+#     render_mode: "rgb_array"
+#     camera_config:
+#       width: 512
+#       height: 256
+#       fov: 90
+#     physics_config:
+#       time_step: 0.002  # Higher precision
+#       max_steps: 2000
+#   interface:
+#     observation_modalities: ["rgb"]
+#     include_prompt_assets: true
+#     include_metadata: true
+#     action_space: "discrete"
+#     max_action_sequence: 20
+#     max_retries: 5
+#     cache_observations: true
+#     cache_size: 200
+#     enable_profiling: true
+
+# For custom tasks:
+# vima:
+#   env:
+#     task_name: "custom_task_name"
+#     task_config:
+#       custom_param1: "value1"
+#       custom_param2: "value2"
+#       difficulty_level: "hard"
+#       max_objects: 10
+#   interface:
+#     observation_modalities: ["rgb"]
+#     include_prompt_assets: true
+#     max_action_sequence: 15
+
+# For high-performance scenarios:
+# vima:
+#   env:
+#     camera_config:
+#       width: 1024
+#       height: 512
+#       fov: 120
+#     physics_config:
+#       time_step: 0.001
+#       max_steps: 5000
+#     scene_config:
+#       enable_collision_detection: false  # Disable for speed
+#       shadow_quality: "low"
+#   interface:
+#     cache_size: 500
+#     async_processing: true
+#     enable_profiling: true
+#     memory_config:
+#       max_observation_cache: 200

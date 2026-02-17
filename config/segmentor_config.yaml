@@ -1,0 +1,11 @@
+segmentor:
+  backend: box_only
+  device: cuda
+  points_per_box: 1
+  min_area: 10
+  dt_suppress_radius: 8
+  axis_order: xy
+  point_mode: auto
+  sam_model_type: sam
+  sam_checkpoint: null
+  sam_config: null

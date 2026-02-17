@@ -1,0 +1,66 @@
+# @package _global_
+
+# Robotic Manipulation Pipeline Configuration
+# ==========================================
+
+# Pipeline settings
+pipeline_name: "robotic_manipulation_pipeline"
+enable_logging: true
+log_directory: "logs"
+
+# VIMA Environment Configuration (nested)
+vima:
+  task_name: "instruction_following/visual_manipulation"  # Use null for basic environment
+  modalities: [rgb]
+  debug: false
+  display_debug_window: true
+  show_gui: true
+  hide_arm_rgb: true
+  gui_delay: 0.1
+  action_delay: 0.5
+  camera_config:
+    width: 1280
+    height: 720
+    fov: 60
+
+# Grounder and Segmentor configurations are now in separate files:
+# - config/grounder_config.yaml
+# - config/segmentor_config.yaml
+
+# Node execution settings
+node_timeout: 30.0  # seconds
+max_retries: 3
+enable_node_profiling: false
+
+# Data processing settings
+image_processing:
+  enable_preprocessing: true
+  normalization: true
+  resize_images: false
+  target_size: [640, 480]
+
+# Action planning settings
+action_planning:
+  max_actions_per_task: 10
+  enable_orientation_control: true
+  rotation_degrees_limit: 180
+  position_tolerance: 0.01  # meters
+
+# Task settings
+task:
+  default_prompt: "Pick up the red block and place it on the table."
+  enable_multi_object: false
+  max_prompts_per_task: 5
+
+# Visualization settings
+visualization:
+  enable_realtime_display: true
+  show_depth_overlay: false
+  show_grasp_points: true
+  update_frequency: 10  # Hz
+
+# Performance settings
+performance:
+  enable_multithreading: false
+  max_workers: 4
+  memory_limit_gb: 8

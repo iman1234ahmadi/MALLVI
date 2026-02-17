@@ -1,0 +1,22 @@
+# Exclude all files and directories starting with a dot
+.*
+# Except .gitignore itself
+!.gitignore
+
+# Exclude the venv directory
+venv/
+logs/
+VIMABench/
+VIMABench.zip
+models/
+observations/
+weights/
+*.pth
+*.pt
+*.bin
+
+**/__pycache__/
+
+/calibration/calibration_images/
+
+/src/*.ipynb

@@ -1,0 +1,14 @@
+vima:
+  task_name: instruction_following/visual_manipulation
+  modalities:
+  - rgb
+  debug: false
+  display_debug_window: true
+  show_gui: true
+  hide_arm_rgb: true
+  gui_delay: 0.1
+  action_delay: 0.5
+  camera_config:
+    width: 1280
+    height: 720
+    fov: 60
